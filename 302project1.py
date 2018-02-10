@@ -1,55 +1,33 @@
 #for project 1 of PHY302, problem 5
 
-from math import sinh, cosh, sin, cos
+from math import sinh, cosh, sin, cos, pi
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib
 import numpy as np
 from matplotlib import cm
 from matplotlib import pyplot as plt
 
-def xfunk(u,v,a):
-    return a*cosh(u)*cos(v)
-def yfunk(u,v,a):
-    return a*sinh(u)*sin(v)
-def zfunk(z):
-    return z
-
-a = -1
-u = 1
-v = -10
-z = -10
-aList = np.arange(-1,1,0.1)
-xList = np.array([])
-yList = np.array([])
-uList = np.arange(-10,10,0.1)
-vList = np.arange(-10,10,0.1)
-zListVar = np.arange(-10,10,0.1)
 
 
-zList = np.ones(20)
-zList = z*zList
+v = pi/3
+a = np.linspace(-5,5,100)
+y = np.linspace(-10,10,1000)
+x = np.linspace(-10,10,1000)
+x,y = np.meshgrid(x,y)
 
-def constU(v,a):
-    x = a * cosh(u) * cos(v)
-    y = a * sinh(u) * sin(v)
-    return x, y
+#I want to find the pairs of x,y that satisfy a hyperbolic equation for a given a-value,
+#store all of those pairs in two arrays, then change a's value and repeat.
+#What I would like to obtain would be essentially a list of lists for x and a list of lists for y
+#each entry in both lists would correspond to the same a-value -- i.e., if I plugged
+#in a=1 to start, then the 0th list in the x list of lists and the 0th entry in the y list of lists
+# would both correspond to a=1
+#So, above I generate a field of x and y's, meshgrid them together, then I would\
+#use a for loop below to generate all the x and y lists for all the a values,
+# and then I would contour to X-Y being equal to 1
+for i in range(len(a)):
+    X = (x/(a*cos(v)))**2
+    Y = (y/(a*sin(v)))**2
 
-
-
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-
-xList, yList = np.meshgrid(xList, yList)
-# Plot the surface.
-surf = ax.plot_surface(xList, yList, zList, cmap=cm.coolwarm,
-                       linewidth=0, antialiased=False)
-
-# Customize the z axis.
-ax.set_zlim(0, 1.01)
-ax.zaxis.set_major_locator(LinearLocator(10))
-ax.zaxis.set_major_formatter(FormatStrFormatter('%.02f'))
-
-# Add a color bar which maps values to colors.
-fig.colorbar(surf, shrink=0.5, aspect=5)
-
+plt.clf()
+plt.contour(x,y,(X-Y),[1])
 plt.show()
