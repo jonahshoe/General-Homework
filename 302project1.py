@@ -11,11 +11,11 @@ ax = fig.add_subplot(111, projection='3d')
 
 
 a = 1
-v = pi/3
-u = np.linspace(-pi,pi,1000)
+v = np.linspace(-pi,pi,1000)
+u = pi/6
 
-X = a * cos(v) * np.cosh(u)
-Y = a * sin(v) * np.sinh(u)
+X = a * np.cos(v) * cosh(u)
+Y = a * np.sin(v) * sinh(u)
 
 
 Z = np.ones(1000)
@@ -23,5 +23,6 @@ Z = np.ones(1000)
 for m in range(100):
     Z = m/100 * np.ones(1000)
     ax.plot(X,Y,Z, color='red')
-
+plt.title('Constant u = pi/6 with a=0.1')
+plt.xlabel('x'), plt.ylabel('y')
 plt.show()

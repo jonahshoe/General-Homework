@@ -14,6 +14,8 @@ Y = a * np.sinh(U) * np.sin(V)
 U1 = np.sinh(U)
 V1 = np.sin(V)
 R = np.sqrt(U1**2 + V1**2)
+#Xhat = np.sinh(U) * np.cos(V) / np.sqrt(np.sinh(U)**2 + np.sin(V)**2)
+#Yhat = np.cosh(U) * np.sin(V) / np.sqrt(np.sinh(U)**2 + np.sin(V)**2)
 Xhat = U1 * np.cos(V) / R
 Yhat = np.cosh(U) * V1 / R
 
@@ -28,7 +30,10 @@ Yhat1 = U1 * np.cos(V) / R
 
 
 #ax1 = fig.add_subplot(211)
-Q = plt.quiver(Xhat1,Yhat1,X,Y)
-Q = plt.quiver(Xhat,Yhat,X,Y)
+Q = plt.quiver(X,Y,Xhat1,Yhat1)
+#Q = plt.quiver(X,Y,Xhat,Yhat)
+plt.xlim(-2,2), plt.ylim(-2,2)
+plt.title('V  Basis Vector Field')
+plt.xlabel('x'), plt.ylabel('y')
 
 plt.show()
